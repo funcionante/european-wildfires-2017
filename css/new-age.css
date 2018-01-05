@@ -44,7 +44,7 @@ p {
   margin-bottom: 20px; }
 
 section {
-  padding: 100px 0; }
+  padding: 50px 0; }
   section h2 {
     font-size: 50px; }
 
@@ -118,9 +118,7 @@ header.masthead {
   padding-top: 150px;
   padding-bottom: 100px;
   color: white;
-  background: url("../img/bg-pattern.png"), #7b4397;
-  background: url("../img/bg-pattern.png"), -webkit-linear-gradient(to left, #7b4397, #dc2430);
-  background: url("../img/bg-pattern.png"), linear-gradient(to left, #7b4397, #dc2430); }
+  background: url("../img/leiria_dark.jpg"), linear-gradient(to left, #000000, #000000); }
   header.masthead .header-content {
     max-width: 500px;
     margin-bottom: 100px;
@@ -149,7 +147,7 @@ header.masthead {
 
 section.download {
   position: relative;
-  padding: 150px 0; }
+  padding: 100px 0; }
   section.download h2 {
     font-size: 50px;
     margin-top: 0; }
@@ -204,7 +202,7 @@ section.features .feature-item {
 section.cta {
   position: relative;
   padding: 250px 0;
-  background-image: url("../img/bg-cta.jpg");
+  background-image: url("../img/pedrogao_dark.jpg");
   background-position: center;
   -webkit-background-size: cover;
   -moz-background-size: cover;
@@ -277,9 +275,10 @@ footer {
         text-decoration: none; }
 
 .bg-primary {
+  color: white;
   background: #fdcc52;
-  background: -webkit-linear-gradient(#fdcc52, #fdc539);
-  background: linear-gradient(#fdcc52, #fdc539); }
+  background: -webkit-linear-gradient(#c34f39, #a64a35);
+  background: linear-gradient(#c34f39, #a64a35); }
 
 .text-primary {
   color: #fdcc52; }
@@ -294,8 +293,8 @@ footer {
   border-color: white; }
   .btn-outline:hover, .btn-outline:focus, .btn-outline:active, .btn-outline.active {
     color: white;
-    border-color: #fdcc52;
-    background-color: #fdcc52; }
+    border-color: #a64a35;
+    background-color: #c34f39; }
 
 .btn {
   border-radius: 300px;
