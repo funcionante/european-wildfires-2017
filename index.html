@@ -115,15 +115,20 @@
           <hr>
         </div>
         <div class="row">
-          <div class="col-lg-12 my-auto">
-            <div class="text-center" style="padding-bottom: 50px">
-
+          <div class="text-center col-lg-12 my-auto">
+            <div style="padding-bottom: 50px">
               <div class="btn-group" data-toggle="buttons">
-                <label class="btn btn-primary active">
-                  <input type="radio" name="options" id="option2_1" autocomplete="off" checked> Occurrences by area
+                <label class="btn btn-primary" onclick="replacePlot2Content('area_occurrences')">
+                  <input type="radio"> Occurrences by area
                 </label>
-                <label class="btn btn-primary">
-                  <input type="radio" name="options" id="option2_2" autocomplete="off"> Total of occurrences
+                <label class="btn btn-primary" onclick="replacePlot2Content('bright_ti4_high')">
+                  <input type="radio"> Max brightness
+                </label>
+                <label class="btn btn-primary" onclick="replacePlot2Content('bright_ti4_avg')">
+                  <input type="radio"> Avg brightness
+                </label>
+                <label class="btn btn-primary active" onclick="replacePlot2Content('total_occurrences')">
+                  <input type="radio"> Total of occurrences
                 </label>
               </div>
             </div>
