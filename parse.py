@@ -4,8 +4,25 @@ import sys
 
 satelites = ['MODIS', 'VIIRS']
 
+# get country:code dict
+country_code = {}
+
+with open('data/world_population.tsv', 'r') as my_file:
+	content = my_file.readlines()
+
+	# remove white space and \n
+	content = [x.strip() for x in content]
+
+	for row in content:
+		values = row.split('\t')
+
+		country_code[values[1]] = values[0]
+
+
 for sat in satelites:
 	# open file to write
+	with open('data/'+sat+'/statistics.tsv', 'w') as the_file_elem:
+		the_file_elem.write('id\tname\toccurrences\n')
 	with open('data/'+sat+'/statistics_ti4.csv', 'w') as the_file_ti4:
 		the_file_ti4.write('country,occurrences,bright_ti4_low,bright_ti4_avg,bright_ti4_high,latitude,longitude,bright_ti4,scan,track,acq_date,acq_time,satellite,instrument,confidence,version,bright_ti5,frp,daynight\n')
 
@@ -80,6 +97,10 @@ for sat in satelites:
 
 		bright_ti4_avg /= elements
 		bright_ti5_avg /= elements
+
+		with open('data/'+sat+'/statistics.tsv', 'a') as the_file_elem:
+			country = country.replace('_',' ')
+			the_file_elem.write("%s\t%s\t%d\n" % (country_code[country],country,elements))
 
 		with open('data/'+sat+'/statistics_ti4.csv', 'a') as the_file_ti4:
 			the_file_ti4.write("%s,%d,%.1f,%.2f,%.1f,%s\n" % (country, elements, bright_ti4_low, bright_ti4_avg, bright_ti4_high, bright_ti4_high_row))

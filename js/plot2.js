@@ -1,3 +1,7 @@
+//Width and height
+var w = 800;
+var h = 600;
+
 var format = d3.format(",");
 
 // Set tooltips
@@ -5,7 +9,7 @@ var tip = d3.tip()
     .attr('class', 'd3-tip')
     .offset([-10, 0])
     .html(function(d) {
-        return "<strong>Country: </strong><span class='details'>" + d.properties.name + "<br></span>" + "<strong>Population: </strong><span class='details'>" + format(d.population) +"</span>";
+        return "<strong>Country: </strong><span class='details'>" + d.properties.name + "<br></span>" + "<strong>Fire occurrences: </strong><span class='details'>" + format(d.population) +"</span>";
     })
 
 var margin = {top: 0, right: 0, bottom: 0, left: 0},
@@ -26,8 +30,9 @@ var path = d3.geoPath();
     .attr('class', 'map');
 
 var projection = d3.geoMercator()
-    .scale(130)
-    .translate( [width / 2, height / 1.5]);
+    .center([ 13, 52 ]) //comment centrer la carte, longitude, latitude
+    .translate([ w/2, h/2 ]) // centrer l'image obtenue dans le svg
+    .scale([ w/1.5 ]); // zoom, plus la valeur est petit plus le zoom est gros
 
 var path = d3.geoPath().projection(projection);
 
@@ -35,13 +40,13 @@ svg.call(tip);
 
 queue()
     .defer(d3.json, "data/world_countries.json")
-    .defer(d3.tsv, "data/world_population.tsv")
+    .defer(d3.tsv, "data/MODIS/statistics.tsv")
     .await(ready);
 
 function ready(error, data, population) {
     var populationById = {};
 
-    population.forEach(function(d) { populationById[d.id] = +d.population; });
+    population.forEach(function(d) { populationById[d.id] = +d.occurrences; });
     data.features.forEach(function(d) { d.population = populationById[d.id] });
 
     svg.append("g")
@@ -50,6 +55,7 @@ function ready(error, data, population) {
         .data(data.features)
         .enter().append("path")
         .attr("d", path)
+        //.style("fill", function(d) { return color(populationById[d.id]); })
         .style("fill", function(d) { return color(populationById[d.id]); })
         .style('stroke', 'white')
         .style('stroke-width', 1.5)
