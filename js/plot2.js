@@ -70,6 +70,9 @@ function replacePlot2Content(type){
 
     svg = d3.select("#plot2-holder")
         .append("svg")
+        .call(d3.zoom().on("zoom", function () {
+            svg.attr("transform", d3.event.transform)
+        }))
         .attr("width", width)
         .attr("height", height)
         .append('g')
