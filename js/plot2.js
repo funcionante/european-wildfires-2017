@@ -4,6 +4,7 @@
 var w = 800;
 var h = 600;
 var plot2_type = "total_occurrences";
+var scale0 = (width - 1) / 2 / Math.PI;
 
 var format = d3.format(",");
 
@@ -36,26 +37,31 @@ function customColor(value) {
     }
 }
 
-var path = d3.geoPath();
-
-    var svg = d3.select("#plot2-holder")
-    .append("svg")
-    .call(d3.zoom().on("zoom", function () {
-        svg.attr("transform", d3.event.transform)
-    }))
-    .attr("width", width)
-    .attr("height", height)
-    .append('g')
-    .attr('class', 'map');
-
-var projection = d3.geoMercator()
+var projection = d3.geo.mercator()
     .center([ 13, 62 ]) //comment centrer la carte, longitude, latitude
     .translate([ w/2, h/2 ]) // centrer l'image obtenue dans le svg
     .scale([ w/3.5 ]); // zoom, plus la valeur est petit plus le zoom est gros
 
-var path = d3.geoPath().projection(projection);
+var path = d3.geo.path().projection(projection);
+
+var zoom = d3.behavior.zoom()
+    .translate([width / 2, height / 2])
+    .scale(scale0)
+    .scaleExtent([scale0, 8 * scale0])
+    .on("zoom", zoomed);
+
+var svg = d3.select("#plot2-holder")
+    .append("svg")
+    .attr("width", width)
+    .attr("height", height)
+    .attr('class', 'map');
+
+var g = svg.append("g")
+    .call(zoom);
 
 svg.call(tip);
+
+var orignal_svg = svg;
 
 queue()
     .defer(d3.json, "data/world_countries.json")
@@ -66,22 +72,24 @@ queue()
 function replacePlot2Content(type){
     plot2_type = type;
 
-    d3.select("svg").remove();
+    svg.remove();
+
 
     svg = d3.select("#plot2-holder")
         .append("svg")
-        .call(d3.zoom().on("zoom", function () {
-            svg.attr("transform", d3.event.transform)
-        }))
         .attr("width", width)
         .attr("height", height)
-        .append('g')
         .attr('class', 'map');
 
     queue()
         .defer(d3.json, "data/world_countries.json")
         .defer(d3.tsv, "data/MODIS/statistics.tsv")
         .await(ready);
+}
+
+function zoomed() {
+    projection.translate(d3.event.translate).scale(d3.event.scale);
+    g.selectAll("path").attr("d", path);
 }
 
 function ready(error, data, statistics) {
