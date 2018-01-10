@@ -1,10 +1,10 @@
 // https://bl.ocks.org/MariellaCC/0055298b94fcf2c16940
+// http://bl.ocks.org/micahstubbs/c7f17dcbdc728e0d579d84e47c33dfa6
 
 //Width and height
 var w = 800;
 var h = 600;
 var plot2_type = "total_occurrences";
-var scale0 = (width - 1) / 2 / Math.PI;
 
 var format = d3.format(",");
 
@@ -15,6 +15,68 @@ var tip = d3.tip()
     .html(function(d) {
         return "<strong>Country: </strong><span class='details'>" + d.properties.name + "<br></span>" + "<strong>Fire occurrences: </strong><span class='details'>" + format(d.value) +"</span>";
     });
+
+tip.direction(function(d) {
+    if (d.properties.name === 'Antarctica') return 'n';
+    // Americas
+    if (d.properties.name === 'Greenland') return 's';
+    if (d.properties.name === 'Canada') return 'e';
+    if (d.properties.name === 'USA') return 'e';
+    if (d.properties.name === 'Mexico') return 'e';
+    // Europe
+    if (d.properties.name === 'Iceland') return 's';
+    if (d.properties.name === 'Norway') return 's';
+    if (d.properties.name === 'Sweden') return 's';
+    if (d.properties.name === 'Finland') return 's';
+    if (d.properties.name === 'Russia') return 'n';
+    // Asia
+    if (d.properties.name === 'China') return 'w';
+    if (d.properties.name === 'Japan') return 's';
+    // Oceania
+    if (d.properties.name === 'Indonesia') return 'w';
+    if (d.properties.name === 'Papua New Guinea') return 'w';
+    if (d.properties.name === 'Australia') return 'w';
+    if (d.properties.name === 'New Zealand') return 'w';
+    // otherwise if not specified
+    return 'n';
+});
+
+tip.offset(function(d) { // [top, left]
+    if (d.properties.name === 'Antarctica') return [0, 0];
+    // Americas
+    if (d.properties.name === 'Greenland') return [10, -10];
+    if (d.properties.name === 'Canada') return [24, -28];
+    if (d.properties.name === 'USA') return [-5, 8];
+    if (d.properties.name === 'Mexico') return [12, 10];
+    if (d.properties.name === 'Chile') return [0, -15];
+    // Europe
+    if (d.properties.name === 'Iceland') return [15, 0];
+    if (d.properties.name === 'Norway') return [10, -38];
+    if (d.properties.name === 'Sweden') return [10, -8];
+    if (d.properties.name === 'Finland') return [10, 0];
+    if (d.properties.name === 'France') return [-9, 66];
+    if (d.properties.name === 'Italy') return [-8, -6];
+    if (d.properties.name === 'Russia') return [190, -200];
+    // Africa
+    if (d.properties.name === 'Madagascar') return [-10, 10];
+    // Asia
+    if (d.properties.name === 'China') return [-16, -8];
+    if (d.properties.name === 'Mongolia') return [-5, 0];
+    if (d.properties.name === 'Pakistan') return [-10, 13];
+    if (d.properties.name === 'India') return [-11, -18];
+    if (d.properties.name === 'Nepal') return [-8, 1];
+    if (d.properties.name === 'Myanmar') return [-12, 0];
+    if (d.properties.name === 'Laos') return [-12, -8];
+    if (d.properties.name === 'Vietnam') return [-12, -4];
+    if (d.properties.name === 'Japan') return [5, 5];
+    // Oceania
+    if (d.properties.name === 'Indonesia') return [0, -5];
+    if (d.properties.name === 'Papua New Guinea') return [-5, -10];
+    if (d.properties.name === 'Australia') return [-15, 0];
+    if (d.properties.name === 'New Zealand') return [-15, 0];
+    // otherwise if not specified
+    return [-10, 0];
+});
 
 var margin = {top: 0, right: 0, bottom: 0, left: 0},
     width = 960 - margin.left - margin.right,
@@ -44,24 +106,18 @@ var projection = d3.geo.mercator()
 
 var path = d3.geo.path().projection(projection);
 
-var zoom = d3.behavior.zoom()
-    .translate([width / 2, height / 2])
-    .scale(scale0)
-    .scaleExtent([scale0, 8 * scale0])
-    .on("zoom", zoomed);
+var data_set;
 
 var svg = d3.select("#plot2-holder")
     .append("svg")
-    .attr("width", width)
-    .attr("height", height)
-    .attr('class', 'map');
-
-var g = svg.append("g")
-    .call(zoom);
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+    .call(d3.behavior.zoom().on("zoom", function () {
+        svg.attr("transform", "translate(" + d3.event.translate + ")" + " scale(" + d3.event.scale + ")")
+    }))
+    .append("g");
 
 svg.call(tip);
-
-var orignal_svg = svg;
 
 queue()
     .defer(d3.json, "data/world_countries.json")
@@ -72,24 +128,12 @@ queue()
 function replacePlot2Content(type){
     plot2_type = type;
 
-    svg.remove();
-
-
-    svg = d3.select("#plot2-holder")
-        .append("svg")
-        .attr("width", width)
-        .attr("height", height)
-        .attr('class', 'map');
+    data_set.remove();
 
     queue()
         .defer(d3.json, "data/world_countries.json")
         .defer(d3.tsv, "data/MODIS/statistics.tsv")
         .await(ready);
-}
-
-function zoomed() {
-    projection.translate(d3.event.translate).scale(d3.event.scale);
-    g.selectAll("path").attr("d", path);
 }
 
 function ready(error, data, statistics) {
@@ -112,7 +156,7 @@ function ready(error, data, statistics) {
     });
     data.features.forEach(function(d) { d.value = populationById[d.id] });
 
-    svg.append("g")
+    data_set = svg.append("g")
         .attr("class", "countries")
         .selectAll("path")
         .data(data.features)
@@ -126,12 +170,14 @@ function ready(error, data, statistics) {
         .style("stroke","white")
         .style('stroke-width', 0.3)
         .on('mouseover',function(d){
-            tip.show(d);
+            if(format(d.value) !== "NaN"){
+                tip.show(d);
 
-            d3.select(this)
-                .style("opacity", 1)
-                .style("stroke","white")
-                .style("stroke-width",3);
+                d3.select(this)
+                    .style("opacity", 1)
+                    .style("stroke","white")
+                    .style("stroke-width",3);
+            }
         })
         .on('mouseout', function(d){
             tip.hide(d);
@@ -142,8 +188,8 @@ function ready(error, data, statistics) {
                 .style("stroke-width",0.3);
         });
 
-    /*svg.append("path")
+    svg.append("path")
         .datum(topojson.mesh(data.features, function(a, b) { return a.id !== b.id; }))
         .attr("class", "names")
-        .attr("d", path);*/
+        .attr("d", path);
 }
