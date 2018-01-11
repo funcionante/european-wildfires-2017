@@ -51,7 +51,7 @@ function start_point(season){
     }
     else if(season === "inverno17"){
         x_start = 918.5;
-        x_end = 999.5;
+        x_end = 1000;
 
         x_start_name = "Dec. 01, 2017";
         x_end_name = "Dec. 31, 2017";
@@ -61,7 +61,7 @@ function start_point(season){
     }
     else{
         x_start = 0;
-        x_end = 999.5;
+        x_end = 1000;
 
         x_start_name = "Jan. 01, 2017";
         x_end_name = "Dec. 31, 2017";
@@ -94,7 +94,7 @@ function start_point(season){
 (function($, d3, moment) {
     // *** THE DATA *** //
     var dataset = function() {
-        var count = 366;
+        var count = 365;
 
         var randInt = function(max, min) {
             max = max || 20;
@@ -256,7 +256,7 @@ function start_point(season){
                     return self;  //chain-able
                 };
                 api.$max = function(x) {
-                    if (x >= self.elements.min.value && x <= self.settings.max) {
+                    if (x >= self.elements.min.value && x <= self.settings.max+1) {
                         console.log(x);
                         self.elements.max.value = x;
                         self.elements.$max.attr('cx', x);
@@ -425,10 +425,6 @@ function start_point(season){
     }(dataset, colors, settings);
 
     renderSlider(dataset, settings, updateChart);
-
-    elements.$maxText.attr('x', 999.5).text("Dec. 31, 2017");
-    elements.max.value = 999.5;
-    elements.$max.attr('cx', 999.5);
 
 
 }(jQuery, window.d3, window.moment));
