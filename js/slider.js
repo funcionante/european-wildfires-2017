@@ -94,7 +94,7 @@ function start_point(season){
 (function($, d3, moment) {
     // *** THE DATA *** //
     var dataset = function() {
-        var count = 365;
+        var count = 366;
 
         var randInt = function(max, min) {
             max = max || 20;
@@ -425,6 +425,8 @@ function start_point(season){
     }(dataset, colors, settings);
 
     renderSlider(dataset, settings, updateChart);
+
+    elements.$maxText.attr('x', 1000).text("Dec. 31, 2017");
 
 
 }(jQuery, window.d3, window.moment));
