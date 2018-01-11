@@ -1,0 +1,13 @@
+#simple-plot path {
+    stroke: steelblue;
+    stroke-width: 2;
+    fill: none;
+}
+
+#simple-plot .axis path,
+#simple-plot .axis line {
+    fill: none;
+    stroke: grey;
+    stroke-width: 1;
+    shape-rendering: crispEdges;
+}
