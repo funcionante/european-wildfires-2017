@@ -51,7 +51,7 @@ function start_point(season){
     }
     else if(season === "inverno17"){
         x_start = 918.5;
-        x_end = 1000;
+        x_end = 999.5;
 
         x_start_name = "Dec. 01, 2017";
         x_end_name = "Dec. 31, 2017";
@@ -61,7 +61,7 @@ function start_point(season){
     }
     else{
         x_start = 0;
-        x_end = 1000;
+        x_end = 999.5;
 
         x_start_name = "Jan. 01, 2017";
         x_end_name = "Dec. 31, 2017";
@@ -426,7 +426,9 @@ function start_point(season){
 
     renderSlider(dataset, settings, updateChart);
 
-    elements.$maxText.attr('x', 1000).text("Dec. 31, 2017");
+    elements.$maxText.attr('x', 999.5).text("Dec. 31, 2017");
+    elements.max.value = 999.5;
+    elements.$max.attr('cx', 999.5);
 
 
 }(jQuery, window.d3, window.moment));
