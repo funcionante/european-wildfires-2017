@@ -40,7 +40,7 @@
             right: 100
         };
         var dim = {
-            width: 850,
+            width: 1000,
             height: 400
         };
 
@@ -236,12 +236,12 @@
             .range([0, settings.dim.width]);
 
         //setup the svg container
-        var svg = d3.select('#controllers')
+        /*var svg = d3.select('#controllers')
             .append('svg')
             .attr({
                 width: settings.dim.width + settings.margins.left + settings.margins.right,
                 height: 50
-            });
+            });*/
         var g = svg.append("g")
             .attr('class', 'x-axis')
             .attr('transform', 'translate(' + settings.margins.left + ',0)');
@@ -309,9 +309,14 @@
 
         var callback = function(process, dstart, dend) {
             if (process === 'dragend') {
-                var data = filterData(dstart.value, dend.value);
+                var slider_start_date = '2017' + "-" + parseInt(dstart.value._d.getMonth()+1) + "-" + dstart.value._d.getDate();
+                var slider_end_date = '2017' + "-" + parseInt(dend.value._d.getMonth()+1) + "-" + dend.value._d.getDate();
+                console.log(slider_start_date);
+                console.log(slider_end_date);
+
+                update_plot1_dataset(slider_start_date, slider_end_date);
                 //svg.attr('opacity', 1);
-                console.log(data);
+                //console.log(data);
                 //svg = renderChart(data, colors, settings);
             } else if (process === 'dragstart') {
                 //svg.attr('opacity', 0.5);

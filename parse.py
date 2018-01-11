@@ -27,13 +27,14 @@ for sat in satelites:
 	# open file to write
 	with open('data/'+sat+'/statistics.tsv', 'w') as the_file_elem:
 		the_file_elem.write('id\tname\ttotal_occurrences\tarea_occurrences\tbright_ti4_high\tbright_ti4_avg\n')
-	#with open('data/'+sat+'/statistics_ti4.csv', 'w') as the_file_ti4:
-	#	the_file_ti4.write('country,occurrences,bright_ti4_low,bright_ti4_avg,bright_ti4_high,latitude,longitude,bright_ti4,scan,track,acq_date,acq_time,satellite,instrument,confidence,version,bright_ti5,frp,daynight\n')
 
-	#with open('data/'+sat+'/statistics_ti5.csv', 'w') as the_file_ti5:
-	#	the_file_ti5.write('country,occurrences,bright_ti5_low,bright_ti5_avg,bright_ti5_high,latitude,longitude,bright_ti4,scan,track,acq_date,acq_time,satellite,instrument,confidence,version,bright_ti5,frp,daynight\n')
+	with open('data/'+sat+'/dates.tsv', 'w') as the_file_date:
+		the_file_date.write('date,country,occurrences\n')
 
 	for country in next(os.walk('data/'+sat))[1]:
+		# save daily fire occurences
+		daily_occurences = {}
+
 		# number of elements
 		elements = 0
 
@@ -70,6 +71,14 @@ for sat in satelites:
 						print('wrong satellite, %s, country: %s'% (values[8], country))
 						exit(101)
 
+					# daily fire occurences count
+					date = values[5]
+
+					if date not in daily_occurences:
+						daily_occurences[date] = 1
+					else:
+						daily_occurences[date] += 1
+
 					elements += 1
 
 					bright_ti4 = float(values[2])
@@ -105,13 +114,14 @@ for sat in satelites:
 		with open('data/'+sat+'/statistics.tsv', 'a') as the_file_elem:
 			country = country.replace('_',' ')
 			the_file_elem.write("%s\t%s\t%d\t%f\t%f\t%f\n" % (country_code[country], country, elements, elements/float(country_area[country]), bright_ti4_high, bright_ti4_avg))
+		
+		with open('data/'+sat+'/dates.tsv', 'a') as the_file_date:
+			country = country.replace('_',' ')
 
-		#with open('data/'+sat+'/statistics_ti4.csv', 'a') as the_file_ti4:
-		#	the_file_ti4.write("%s,%d,%.1f,%.2f,%.1f,%s\n" % (country, elements, bright_ti4_low, bright_ti4_avg, bright_ti4_high, bright_ti4_high_row))
+			for key, value in daily_occurences.items():
+				the_file_date.write('%s,%s,%d\n' % (key, country, value))
 
-		#with open('data/'+sat+'/statistics_ti5.csv', 'a') as the_file_ti5:
-		#	the_file_ti5.write("%s,%d,%.1f,%.2f,%.1f,%s\n" % (country, elements, bright_ti5_low, bright_ti5_avg, bright_ti5_high, bright_ti5_high_row))
 
-		#exit()
-		#for files in os.walk('data/'+sat+'/'+country):
-		#	print(files)
+
+
+
