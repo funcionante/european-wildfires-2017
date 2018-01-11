@@ -118,7 +118,7 @@ function getTop10(start_date, end_date){
         top10_formated[i] = {label:top10[i][0], value:Math.ceil(top10[i][1]*100/total_count)};
     }
 
-    return top10_formated;
+    return top10_formated.reverse();
 }
 
 // end
@@ -134,7 +134,7 @@ var x_plot1, y_plot1, svg_plot1, margin_plot1, height_plot1, width_plot1, xAxis_
 function plot1_init() {
 
 
-    margin_plot1 = {top: 10, right: 10, bottom: 30, left: 100};
+    margin_plot1 = {top: 30, right: 10, bottom: -20, left: 100};
     width_plot1 = 900;
     height_plot1 = 400;
 
@@ -151,7 +151,7 @@ function plot1_init() {
     xAxis_plot1 = d3.svg.axis()
         .scale(x_plot1)
         .tickSize(-height_plot1)
-        .orient("bottom");
+        .orient("top");
 
     yAxis_plot1 = d3.svg.axis()
         .scale(y_plot1)
@@ -166,7 +166,6 @@ function plot1_init() {
 
     svg_plot1.append("g")
         .attr("class", "x axis")
-        .attr("transform", "translate(0," + height_plot1 + ")")
         .call(xAxis_plot1);
 
     d3.select("input[value=\"total\"]").property("checked", true);
@@ -179,7 +178,6 @@ function change(dataset) {
 
     svg_plot1.append("g")
         .attr("class", "x axis")
-        .attr("transform", "translate(0," + height_plot1 + ")")
         .call(xAxis_plot1);
 
     svg_plot1.select(".y.axis").remove();
@@ -189,11 +187,9 @@ function change(dataset) {
         .attr("class", "y axis")
         .call(yAxis_plot1)
         .append("text")
-        .attr("transform", "rotate(0)")
-        .attr("x", 50)
+        .attr("transform", "translate(-5, -20)")
         .attr("dx", ".1em")
-        .style("text-anchor", "end")
-        .text("Option %");
+        .text("% of occurrences");
 
 
     var bar_plot1 = svg_plot1.selectAll(".bar")
