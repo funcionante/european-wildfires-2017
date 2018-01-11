@@ -9,8 +9,18 @@ function start_point(season){
     x_end = 100;
     x_end_name = "May. 29, 2017";
 
-    if(season === "primavera"){
-        x_start = 164.5;
+    if(season === "inverno16"){
+        x_start = 0;
+        x_end = 161.5;
+
+        x_start_name = "Jan. 01, 2017";
+        x_end_name = "Feb. 28, 2017";
+
+        x_start_date = "2017-01-01";
+        x_end_date = "2017-02-28";
+    }
+    else if(season === "primavera"){
+        x_start = 162.5;
         x_end = 414.5;
 
         x_start_name = "Mar. 01, 2017";
@@ -38,6 +48,16 @@ function start_point(season){
 
         x_start_date = "2017-09-01";
         x_end_date = "2017-11-30";
+    }
+    else if(season === "inverno17"){
+        x_start = 918.5;
+        x_end = 1000;
+
+        x_start_name = "Dec. 01, 2017";
+        x_end_name = "Dec. 31, 2017";
+
+        x_start_date = "2017-12-01";
+        x_end_date = "2017-12-31";
     }
     else{
         x_start = 0;
