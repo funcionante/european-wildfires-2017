@@ -1,5 +1,54 @@
+// based on:
 // https://bl.ocks.org/MariellaCC/0055298b94fcf2c16940
 // http://bl.ocks.org/micahstubbs/c7f17dcbdc728e0d579d84e47c33dfa6
+
+function toPortuguese(name) {
+    switch (name) {
+        case 'Albania': return 'Albânia';
+        case 'Armenia': return 'Arménia';
+        case 'Austria': return 'Áustria';
+        case 'Azerbaijan': return 'Azerbeijão';
+        case 'Belarus': return 'Bielorrússia';
+        case 'Bosnia and Herzegovina': return 'Bósnia e Herzegovina';
+        case 'Bulgaria': return 'Bulgária';
+        case 'Croatia': return 'Croácia';
+        case 'Cyprus': return 'Chipre';
+        case 'Czech Republic': return 'República Checa';
+        case 'Denmark': return 'Dinamarca';
+        case 'Estonia': return 'Estónia';
+        case 'Finland': return 'Finlândia';
+        case 'France': return 'França';
+        case 'Georgia': return 'Geórgia';
+        case 'Germany': return 'Alemanha';
+        case 'Greece': return 'Grécia';
+        case 'Hungary': return 'Hungria';
+        case 'Iceland': return 'Islândia';
+        case 'Ireland': return 'Irlanda';
+        case 'Italy': return 'Itália';
+        case 'Kazakhstan': return 'Cazaquistão';
+        case 'Latvia': return 'Letónia';
+        case 'Lithuania': return 'Lituânia';
+        case 'Luxembourg': return 'Luxemburgo';
+        case 'Macedonia': return 'Macedónia';
+        case 'Moldova': return 'Moldávia';
+        case 'Netherlands': return 'Holanda';
+        case 'Norway': return 'Noruega';
+        case 'Poland': return 'Polónia';
+        case 'Romania': return 'Roménia';
+        case 'Russia': return 'Rússia';
+        case 'Serbia': return 'Sérvia';
+        case 'Slovakia': return 'Eslováquia';
+        case 'Slovenia': return 'Eslovénia';
+        case 'Spain': return 'Espanha';
+        case 'Sweden': return 'Suécia';
+        case 'Switzerland': return 'Suíça';
+        case 'Turkey': return 'Turquia';
+        case 'Ukraine': return 'Ucrânia';
+        case 'United Kingdom': return 'Reino Unido';
+        case 'England': return 'Reino Unido';
+        default: return name;
+    }
+};
 
 //Width and height
 var w = 800;
@@ -13,7 +62,7 @@ var tip = d3.tip()
     .attr('class', 'd3-tip')
     .offset([-10, 0])
     .html(function(d) {
-        return "<strong>Country: </strong><span class='details'>" + d.properties.name + "<br></span>" + "<strong>Fire occurrences: </strong><span class='details'>" + format(d.value) +"</span>";
+        return "<strong>País: </strong><span class='details'>" + toPortuguese(d.properties.name) + "<br></span>" + "<strong>Ocorrências: </strong><span class='details'>" + format(d.value) +"</span>";
     });
 
 tip.direction(function(d) {

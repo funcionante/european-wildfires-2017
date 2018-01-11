@@ -1,6 +1,55 @@
+// based on:
+// https://github.com/evanplaice/jquery-csv
+
 var top10dataset;
 
-// https://github.com/evanplaice/jquery-csv
+function toPortuguese(name) {
+    switch (name) {
+        case 'Albania': return 'Albânia';
+        case 'Armenia': return 'Arménia';
+        case 'Austria': return 'Áustria';
+        case 'Azerbaijan': return 'Azerbeijão';
+        case 'Belarus': return 'Bielorrússia';
+        case 'Bosnia and Herzegovina': return 'Bósnia e Herzegovina';
+        case 'Bulgaria': return 'Bulgária';
+        case 'Croatia': return 'Croácia';
+        case 'Cyprus': return 'Chipre';
+        case 'Czech Republic': return 'República Checa';
+        case 'Denmark': return 'Dinamarca';
+        case 'Estonia': return 'Estónia';
+        case 'Finland': return 'Finlândia';
+        case 'France': return 'França';
+        case 'Georgia': return 'Geórgia';
+        case 'Germany': return 'Alemanha';
+        case 'Greece': return 'Grécia';
+        case 'Hungary': return 'Hungria';
+        case 'Iceland': return 'Islândia';
+        case 'Ireland': return 'Irlanda';
+        case 'Italy': return 'Itália';
+        case 'Kazakhstan': return 'Cazaquistão';
+        case 'Latvia': return 'Letónia';
+        case 'Lithuania': return 'Lituânia';
+        case 'Luxembourg': return 'Luxemburgo';
+        case 'Macedonia': return 'Macedónia';
+        case 'Moldova': return 'Moldávia';
+        case 'Netherlands': return 'Holanda';
+        case 'Norway': return 'Noruega';
+        case 'Poland': return 'Polónia';
+        case 'Romania': return 'Roménia';
+        case 'Russia': return 'Rússia';
+        case 'Serbia': return 'Sérvia';
+        case 'Slovakia': return 'Eslováquia';
+        case 'Slovenia': return 'Eslovénia';
+        case 'Spain': return 'Espanha';
+        case 'Sweden': return 'Suécia';
+        case 'Switzerland': return 'Suíça';
+        case 'Turkey': return 'Turquia';
+        case 'Ukraine': return 'Ucrânia';
+        case 'United Kingdom': return 'Reino Unido';
+        case 'England': return 'Reino Unido';
+        default: return name;
+    }
+};
 
 var country_occurrences = {};
 
@@ -173,7 +222,7 @@ function plot1_init() {
 
 function change(dataset) {
     console.log(dataset);
-    y_plot1.domain(dataset.map(function(d) { return d.label; }));
+    y_plot1.domain(dataset.map(function(d) { return toPortuguese(d.label); }));
     x_plot1.domain([0, d3.max(dataset, function(d) { return d.value; })]);
 
     svg_plot1.append("g")
@@ -189,16 +238,16 @@ function change(dataset) {
         .append("text")
         .attr("transform", "translate(-5, -20)")
         .attr("dx", ".1em")
-        .text("% of occurrences");
+        .text("% de ocurrências");
 
 
     var bar_plot1 = svg_plot1.selectAll(".bar")
-        .data(dataset, function(d) { return d.label; });
+        .data(dataset, function(d) { return toPortuguese(d.label); });
     // new data:
     bar_plot1.enter().append("rect")
         .attr("class", "bar")
         .attr("x", function(d) { return x_plot1(d.value); })
-        .attr("y", function(d) { return y_plot1(d.label); })
+        .attr("y", function(d) { return toPortuguese(y_plot1(d.label)); })
         .attr("width", function(d) { return width_plot1-x_plot1(d.value); })
         .attr("height", y_plot1.rangeBand());
 
@@ -207,7 +256,7 @@ function change(dataset) {
             div_plot1.style("left", d3.event.pageX+10+"px");
             div_plot1.style("top", d3.event.pageY-25+"px");
             div_plot1.style("display", "inline-block");
-            div_plot1.html((d.label)+"<br>"+(d.value)+"%");
+            div_plot1.html((toPortuguese(d.label))+"<br>"+(d.value)+"%");
         });
     bar_plot1
         .on("mouseout", function(d){
@@ -222,7 +271,7 @@ function change(dataset) {
     bar_plot1.transition()
         .duration(750)
         .attr("x", function(d) { return 0; })
-        .attr("y", function(d) { return y_plot1(d.label); })
+        .attr("y", function(d) { return y_plot1(toPortuguese(d.label)); })
         .attr("width", function(d) { return x_plot1(d.value); })
         .attr("height", y_plot1.rangeBand());
 }

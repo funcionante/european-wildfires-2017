@@ -8,7 +8,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>European Wildfires 2017</title>
+    <title>Incêndios na Europa em 2017</title>
 
     <!-- Bootstrap core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -32,7 +32,7 @@
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
       <div class="container">
-        <a class="navbar-brand js-scroll-trigger" href="#page-top">European Wildfires 2017</a>
+        <a class="navbar-brand js-scroll-trigger" href="#page-top">Incêndios na Europa em 2017</a>
         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
           Menu
           <i class="fa fa-bars"></i>
@@ -40,13 +40,16 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="#download">Introduction</a>
+              <a class="nav-link js-scroll-trigger" href="#download">Início</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="#plot1">Data</a>
+              <a class="nav-link js-scroll-trigger" href="#plot1">Balanço Diário</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="#contact">About</a>
+              <a class="nav-link js-scroll-trigger" href="#plot2">Balanço Anual</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="#contact">Conclusões</a>
             </li>
           </ul>
         </div>
@@ -59,8 +62,8 @@
           <div class="col-lg-7 my-auto">
             <div class="header-content mx-auto">
               <h1 class="mb-5">523 incêndios num só dia. Mais de 6 mil operacionais no terreno. Incêndios descontrolados em Monção, Arganil e Seia. Aldeias evacuadas e 36 mortos, "um balanço que não é final".</h1>
-              <p>in <a href="http://observador.pt/2017/10/16/tudo-o-que-se-sabe-sobre-o-pior-dia-de-incendios-do-ano/" target="_blank">Observador</a> at October 16, 2017</p>
-              <a href="#download" class="btn btn-outline btn-xl js-scroll-trigger">Explore</a>
+              <p>em <a href="http://observador.pt/2017/10/16/tudo-o-que-se-sabe-sobre-o-pior-dia-de-incendios-do-ano/" target="_blank">Observador</a> a 16 de Outubro de 2017</p>
+              <a href="#download" class="btn btn-outline btn-xl js-scroll-trigger">Explorar</a>
             </div>
           </div>
         </div>
@@ -71,7 +74,7 @@
       <div class="container">
         <div class="row">
           <div class="col-md-8 mx-auto">
-            <h2 class="section-heading">An overview of the wildfires in Europe<br>during 2017</h2>
+            <h2 class="section-heading">Um balanço geral dos incêndios que deflagraram na Europa durante 2017</h2>
           </div>
         </div>
       </div>
@@ -80,8 +83,8 @@
     <section class="features" id="plot1">
       <div class="container">
         <div class="section-heading text-center">
-          <h2>Plot 1</h2>
-          <p class="text-muted">Plot 1 description</p>
+          <h2>Balanço diário</h2>
+          <p class="text-muted">O gráfico abaixo permite analisar o top 10 dos países com mais ocorrências de incêndios num período de dias. A figura está ordenada pela percentagem relativa ao total desses 10 países nesse intervalo. É possível selecionar um período de tempo personalizado no eixo ao fundo.</p>
           <hr>
         </div>
         <div class="row">
@@ -113,8 +116,8 @@
     <section class="features" id="plot2">
       <div class="container">
         <div class="section-heading text-center">
-          <h2>Plot 2</h2>
-          <p class="text-muted">Plot 2 description</p>
+          <h2>Balanço anual</h2>
+          <p class="text-muted">O mapa que se segue ilustra a distribuição das ocorrência de incêndios nos diversos países no total dos 365 dias. A escala de cores varia entre o amarelo (mínimo) e o vermelho (máximo). É possível escolher visualizar as ocorrências totais e as ocorrências por km².</p>
           <hr>
         </div>
         <div class="row">
@@ -122,16 +125,16 @@
             <div style="padding-bottom: 50px">
               <div class="btn-group" data-toggle="buttons">
                 <label class="btn btn-secondary" onclick="replacePlot2Content('area_occurrences')">
-                  <input type="radio"> Occurrences by area
+                  <input type="radio"> Ocorrências por km²
                 </label>
-                <label class="btn btn-secondary" onclick="replacePlot2Content('bright_ti4_high')">
-                  <input type="radio"> Max brightness
-                </label>
-                <label class="btn btn-secondary" onclick="replacePlot2Content('bright_ti4_avg')">
-                  <input type="radio"> Avg brightness
-                </label>
+                <!--<label class="btn btn-secondary" onclick="replacePlot2Content('bright_ti4_high')">-->
+                  <!--<input type="radio"> Max brightness-->
+                <!--</label>-->
+                <!--<label class="btn btn-secondary" onclick="replacePlot2Content('bright_ti4_avg')">-->
+                  <!--<input type="radio"> Avg brightness-->
+                <!--</label>-->
                 <label class="btn btn-secondary active" onclick="replacePlot2Content('total_occurrences')">
-                  <input type="radio"> Total of occurrences
+                  <input type="radio"> Total de ocorrências
                 </label>
               </div>
             </div>
@@ -149,7 +152,7 @@
           <div class="col-lg-7 my-auto">
             <div class="header-content mx-auto">
               <h1 class="mb-5">O incêndio de Pedrógão Grande deste fim-de-semana, que matou 64 pessoas, é já o 11.º fogo florestal a provocar mais mortos desde 1900, em todo o mundo. Se aos dados de 2016 juntarmos as vítimas deste fogo no distrito de Leiria, Portugal será o sexto país onde mais se morre em grandes incêndios florestais.</h1>
-              <p>in <a href="http://rr.sapo.pt/especial/86656/fogo_de_pedrogao_grande_e_o_11_mais_mortal_do_mundo_desde_1900" target="_blank">Renascença</a> at June 19, 2017</p>
+              <p>em <a href="http://rr.sapo.pt/especial/86656/fogo_de_pedrogao_grande_e_o_11_mais_mortal_do_mundo_desde_1900" target="_blank">Renascença</a> a 19 de Junho de 2017</p>
             </div>
           </div>
         </div>
@@ -158,12 +161,18 @@
 
     <section class="contact bg-primary" id="contact">
       <div class="container">
-        <h2>Thank you for watching</h2>
-        <p>
-          Credits to
-          <br>Dzianis Bartashevich, 76537
-          <br>Leonardo Oliveira, 76725
+        <p>Os presentes dados foram obtidos do <a target="_blank" href="https://firms2.modaps.eosdis.nasa.gov/">Fire Information for Resource Management System</a> (FIRMS),<br> tendo sido previamente extraídos de imagens de satélite.</p>
 
+        <h2> Portugal foi o segundo país da UE com mais incêndios deflagrados em 2017, logo após a Itália. *</h2>
+
+        <p>* Segundo os dados do FIRMS. Isto confirma em parte a <a target="_blank" href="http://expresso.sapo.pt/multimedia-expresso/2017-12-29-Um-fogo-que-nao-se-apaga-incendios-o-acontecimento-nacional-de-2017">notícia do Expresso</a> que afirma que o território português sofreu "mais de metade da área ardida na Europa" em 2017. Visto os dados terem sido obtidos via satélite, o número de ocorrências estimado pode não corresponder ao valor real, bem como à correspondente área ardida.</p>
+
+        <h2>80% do pinhal de Leiria foi levado pelas chamas. <a target="_blank" href="https://www.dn.pt/sociedade/interior/incendios-autarca-da-marinha-grande-estima-que-ja-tenha-ardido-80-do-pinhal-de-leiria-8847365.html">**</a></h2>
+
+        <p>Desta análise foram excluídos os microestados Andorra, Liechtenstein, Mónaco, São Marinho e Vaticano que, por serem regiões com uma área bastante reduzida, não têm dados disponíveis. Os dados de países com área extracontinental (para além da Europa), como Rússia e Cazaquistão, foram mantidos na totalidade, pelo que se encontram incluídas ocorrências em solo não europeu, apesar de corresponderem sempre a países europeus.</p>
+
+        <p>
+          Trabalho realizado por Dzianis Bartashevich (76537) e Leonardo Oliveira (76725).
         </p>
       </div>
     </section>

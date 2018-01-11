@@ -204,7 +204,7 @@
                     $text.attr('fill-opacity', self.settings.medium);
                     self.elements.$bar.attr('fill-opacity', self.settings.opacity.half);
                     runCallback('dragend');
-                }
+                };
                 api.$min = function() {
                     render(self.elements.$min, self.elements.$minText);
                     return self;
