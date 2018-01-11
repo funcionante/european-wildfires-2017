@@ -22,12 +22,8 @@
 
     <!-- Custom styles for this template -->
     <link href="css/new-age.css" rel="stylesheet">
-
-    <!--d3 scripts-->
-    <script src="http://d3js.org/d3.v3.js"></script>
-    <script src="js/d3-tip.js"></script>
-    <script src="http://d3js.org/topojson.v1.min.js"></script>
-    <script src="http://d3js.org/queue.v1.min.js"></script>
+    <link rel="stylesheet" href="css/plot1.css">
+    <link rel="stylesheet" href="css/plot2.css">
 
   </head>
 
@@ -89,9 +85,9 @@
           <hr>
         </div>
         <div class="row">
-          <div class="col-lg-12 my-auto">
+          <div class="text-center col-lg-12 my-auto">
 
-            <div class="text-center" style="padding-bottom: 50px">
+            <!--<div style="padding-bottom: 50px">
               <div class="btn-group" data-toggle="buttons">
                 <label class="btn btn-primary active">
                   <input type="radio" name="options" id="option1_1" autocomplete="off" checked> All 24H
@@ -103,10 +99,11 @@
                   <input type="radio" name="options" id="option1_3" autocomplete="off"> Night
                 </label>
               </div>
-            </div>
+            </div>-->
 
             <div class="container-fluid" id="plot1-holder">
-              plot 1
+              <div id="plot1-graph"></div>
+              <div id="controllers"></div>
             </div>
           </div>
         </div>
@@ -121,15 +118,20 @@
           <hr>
         </div>
         <div class="row">
-          <div class="col-lg-12 my-auto">
-            <div class="text-center" style="padding-bottom: 50px">
-
+          <div class="text-center col-lg-12 my-auto">
+            <div style="padding-bottom: 50px">
               <div class="btn-group" data-toggle="buttons">
-                <label class="btn btn-primary active">
-                  <input type="radio" name="options" id="option2_1" autocomplete="off" checked> Occurrences by area
+                <label class="btn btn-primary" onclick="replacePlot2Content('area_occurrences')">
+                  <input type="radio"> Occurrences by area
                 </label>
-                <label class="btn btn-primary">
-                  <input type="radio" name="options" id="option2_2" autocomplete="off"> Total of occurrences
+                <label class="btn btn-primary" onclick="replacePlot2Content('bright_ti4_high')">
+                  <input type="radio"> Max brightness
+                </label>
+                <label class="btn btn-primary" onclick="replacePlot2Content('bright_ti4_avg')">
+                  <input type="radio"> Avg brightness
+                </label>
+                <label class="btn btn-primary active" onclick="replacePlot2Content('total_occurrences')">
+                  <input type="radio"> Total of occurrences
                 </label>
               </div>
             </div>
@@ -182,11 +184,21 @@
     <!-- Custom scripts for this template -->
     <script src="js/new-age.min.js"></script>
 
+    <!--d3 scripts-->
+    <script src="http://d3js.org/d3.v3.min.js"></script>
+    <script src="http://d3js.org/queue.v1.min.js"></script>
+    <script src="http://d3js.org/topojson.v1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.12.0/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+    <script src="http://evanplaice.github.io/jquery-csv/src/jquery.csv.js"></script>
+    <script src="js/d3-tip.js"></script>
+    <!--<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+    <script src="http://d3js.org/topojson.v1.min.js"></script>-->
 
     <!-- d3 plots scripts -->
-    <script src="js/plot1.js"></script>
     <script src="js/plot2.js"></script>
-    <link rel="stylesheet" href="css/plot2.css">
+    <script src="js/slider.js"></script>
+    <script src="js/plot1.js"></script>
 
   </body>
 
