@@ -61,7 +61,6 @@ $.ajax({
     },
     dataType: "text",
     complete: function () {
-        console.log("start");
 
         // build data-structure
         // date,country,occurrences
@@ -221,7 +220,6 @@ function plot1_init() {
 }
 
 function change(dataset) {
-    console.log(dataset);
     y_plot1.domain(dataset.map(function(d) { return toPortuguese(d.label); }));
     x_plot1.domain([0, d3.max(dataset, function(d) { return d.value; })]);
 

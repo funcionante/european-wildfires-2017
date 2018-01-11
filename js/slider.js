@@ -246,7 +246,6 @@ function start_point(season){
 
                 api.$min = function(x) {
                     if (x >= self.settings.min && x <= self.elements.max.value) {
-                        console.log(x);
                         self.elements.min.value = x;
                         self.elements.$min.attr('cx', x);
                         self.elements.$minText.attr('x', x).text(self.settings.translater.apply(self, [x]).text);
@@ -257,7 +256,6 @@ function start_point(season){
                 };
                 api.$max = function(x) {
                     if (x >= self.elements.min.value && x <= self.settings.max+1) {
-                        console.log(x);
                         self.elements.max.value = x;
                         self.elements.$max.attr('cx', x);
                         self.elements.$maxText.attr('x', x).text(self.settings.translater.apply(self, [x]).text);
@@ -371,8 +369,6 @@ function start_point(season){
 
         var slider = new RangeSlider(g, settings.dim.width, handles.size, '#c34f39', translater, callback);
 
-        console.log("slider", slider);
-
         //setup handle dragging
         slider.elements.$min.call(d3.behavior.drag()
             .on('dragstart', slider.dragstart.$min)
@@ -409,13 +405,8 @@ function start_point(season){
             if (process === 'dragend') {
                 var slider_start_date = '2017' + "-" + parseInt(dstart.value._d.getMonth()+1) + "-" + dstart.value._d.getDate();
                 var slider_end_date = '2017' + "-" + parseInt(dend.value._d.getMonth()+1) + "-" + dend.value._d.getDate();
-                console.log(slider_start_date);
-                console.log(slider_end_date);
 
                 update_plot1_dataset(slider_start_date, slider_end_date);
-                //svg.attr('opacity', 1);
-                //console.log(data);
-                //svg = renderChart(data, colors, settings);
             } else if (process === 'dragstart') {
                 //svg.attr('opacity', 0.5);
             }
