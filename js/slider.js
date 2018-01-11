@@ -51,6 +51,8 @@
     }();
 
 
+    var offset_tweak = 33;
+
     var renderSlider = function(dataset, settings, callback) {
 
         var RangeSlider = function(svg, width, radius, color, translater, callback) {
@@ -79,7 +81,7 @@
             elements.$bar = svg.append('rect')
                 .attr({
                     x: settings.offset, width: settings.max - (settings.offset*2),
-                    y: settings.offset, height: settings.radius,
+                    y: settings.offset + offset_tweak, height: settings.radius,
                     fill: settings.color,
                     'fill-opacity': settings.opacity.half
                 });
@@ -88,7 +90,7 @@
             elements.$min = svg.append('ellipse')
                 .style('cursor', 'pointer')
                 .attr({
-                    cx: settings.min, cy: settings.radius,
+                    cx: settings.min, cy: settings.radius + offset_tweak,
                     rx: settings.radius, ry: settings.radius,
                     fill: settings.color,
                     'fill-opacity': settings.opacity.medium
@@ -103,14 +105,14 @@
             elements.$max = svg.append('ellipse')
                 .style('cursor', 'pointer')
                 .attr({
-                    cx: settings.max, cy: settings.radius,
+                    cx: settings.max, cy: settings.radius + offset_tweak,
                     rx: settings.radius, ry: settings.radius,
                     fill: settings.color,
                     'fill-opacity': settings.opacity.medium
                 });
             elements.$maxText = svg.append('text')
                 .attr({
-                    x: settings.max, y: settings.radius*3 + settings.offset,
+                    x: settings.max, y: settings.radius*3 + settings.offset + offset_tweak,
                     fill: 'black', 'fill-opacity': settings.opacity.medium,
                     'text-anchor': 'middle'
                 }).text(settings.translater.apply(self,[settings.max]).text);
@@ -249,8 +251,8 @@
         //draw the axis
         g.append('line')
             .attr({
-                x1: 0, y1: handles.size,
-                x2: settings.dim.width, y2: handles.size,
+                x1: 0, y1: handles.size + offset_tweak,
+                x2: settings.dim.width, y2: handles.size + offset_tweak,
                 stroke: '#ccc',
                 "stroke-width": 1
             });
@@ -271,7 +273,7 @@
             };
         }(timeScale);
 
-        var slider = new RangeSlider(g, settings.dim.width, handles.size, 'red', translater, callback);
+        var slider = new RangeSlider(g, settings.dim.width, handles.size, '#c34f39', translater, callback);
 
         console.log("slider", slider);
 
