@@ -1,3 +1,76 @@
+var elements;
+
+function start_point(season){
+    var x_start = 0, x_end = 0, x_start_name = "", x_end_name = "", x_start_date = "", x_end_date = "";
+
+    x_start = 10;
+    x_start_name = "Jan. 29, 2017";
+
+    x_end = 100;
+    x_end_name = "May. 29, 2017";
+
+    if(season === "primavera"){
+        x_start = 164.5;
+        x_end = 414.5;
+
+        x_start_name = "Mar. 01, 2017";
+        x_end_name = "May. 31, 2017";
+
+        x_start_date = "2017-03-01";
+        x_end_date = "2017-05-31";
+    }
+    else if(season === "verao"){
+        x_start = 415.5;
+        x_end = 666.5;
+
+        x_start_name = "Jun. 01, 2017";
+        x_end_name = "Ago. 31, 2017";
+
+        x_start_date = "2017-06-01";
+        x_end_date = "2017-08-31";
+    }
+    else if(season === "outono"){
+        x_start = 667.5;
+        x_end = 917.5;
+
+        x_start_name = "Sep. 01, 2017";
+        x_end_name = "Nov. 30, 2017";
+
+        x_start_date = "2017-09-01";
+        x_end_date = "2017-11-30";
+    }
+    else{
+        x_start = 0;
+        x_end = 1000;
+
+        x_start_name = "Jan. 01, 2017";
+        x_end_name = "Dec. 31, 2017";
+
+        x_start_date = "2017-01-01";
+        x_end_date = "2017-12-31";
+    }
+
+    update_plot1_dataset(x_start_date, x_end_date);
+
+    var resetBar = function(x, width) {
+        //no error checking
+        elements.$bar.attr({
+            x: Math.max(x - 4, 0), width: Math.max(width, 0)
+        });
+    };
+
+    elements.min.value = x_start;
+    elements.$min.attr('cx', x_start);
+    elements.$minText.attr('x', x_start).text(x_start_name);
+    resetBar(x_start, elements.max.value - x_start);
+
+    elements.max.value = x_end;
+    elements.$max.attr('cx', x_end);
+    elements.$maxText.attr('x', x_end).text(x_end_name);
+    resetBar(elements.min.value, x_end - elements.min.value);
+
+}
+
 (function($, d3, moment) {
     // *** THE DATA *** //
     var dataset = function() {
@@ -56,12 +129,12 @@
     var renderSlider = function(dataset, settings, callback) {
 
         var RangeSlider = function(svg, width, radius, color, translater, callback) {
-            var self = this,
+            var self = this;
                 elements = {
                     min: { value: 0 },
                     max: { value: width }
-                },
-                settings = {
+                };
+                var settings = {
                     min: 0,
                     max: width,
                     radius: radius,
@@ -153,6 +226,7 @@
 
                 api.$min = function(x) {
                     if (x >= self.settings.min && x <= self.elements.max.value) {
+                        console.log(x);
                         self.elements.min.value = x;
                         self.elements.$min.attr('cx', x);
                         self.elements.$minText.attr('x', x).text(self.settings.translater.apply(self, [x]).text);
@@ -163,6 +237,7 @@
                 };
                 api.$max = function(x) {
                     if (x >= self.elements.min.value && x <= self.settings.max) {
+                        console.log(x);
                         self.elements.max.value = x;
                         self.elements.$max.attr('cx', x);
                         self.elements.$maxText.attr('x', x).text(self.settings.translater.apply(self, [x]).text);
@@ -233,6 +308,7 @@
             handles = {
                 size: 8
             };
+
         var timeScale = d3.time.scale()
             .domain([min.toDate(), max.toDate()])
             .range([0, settings.dim.width]);
