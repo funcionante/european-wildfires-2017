@@ -49,7 +49,7 @@ function toPortuguese(name) {
         case 'England': return 'Reino Unido';
         default: return name;
     }
-};
+}
 
 var country_occurrences = {};
 
@@ -97,8 +97,74 @@ $.ajax({
         plot1_init();
 
         change(top10dataset);
+
+        update_line(getOccurrences("2017-01-01","2017-12-31"));
     }
 });
+
+function getOccurrences(start_date, end_date){
+    var daily_occurences = {};
+
+    var start_month = parseInt(start_date.split("-")[1]);
+    var start_day = parseInt(start_date.split("-")[2]);
+
+    var end_month = parseInt(end_date.split("-")[1]);
+    var end_day = parseInt(end_date.split("-")[2]);
+
+    for(var country in country_occurrences){
+
+        // walkthrough months
+        for(var month = start_month; month <= end_month; month++){
+            // check don't if month exists
+            if(!(month in country_occurrences[country])){
+                continue;
+            }
+
+            var start_day_for = 1;
+            var end_day_for = 31;
+
+            // start_day could be 1 or 14, depends of input
+            if(month === start_month){
+                start_day_for = start_day;
+            }
+
+            if(month === end_month){
+                end_day_for = end_day;
+            }
+
+            // walkthrough days
+            for(var day = start_day_for; day <= end_day_for; day++){
+                if((day in country_occurrences[country][month])){
+                    var key_val = '2017-' + month + '-' + day;
+
+                    if(!(key_val in daily_occurences)){
+                        daily_occurences[key_val] = 0;
+                    }
+
+                    daily_occurences[key_val] += parseInt(country_occurrences[country][month][day]);
+                }
+            }
+        }
+    }
+
+    var parsed_occurrences = [];
+    var pars = 0;
+
+    var orderedDates = {};
+    Object.keys(daily_occurences).sort(function(b, a) {
+        return moment(b, 'YYYY/MM/DD').toDate() - moment(a, 'YYYY/MM/DD').toDate();
+    }).forEach(function(key) {
+        //orderedDates[key] = daily_occurences[key];
+        parsed_occurrences[pars++] = {date: key, close: daily_occurences[key]};
+    });
+
+    /*for(var date_occ in orderedDates){
+        parsed_occurrences[pars] = {date: date_occ, close: orderedDates[date_occ]};
+        pars++;
+    }*/
+
+    return parsed_occurrences;
+}
 
 function getTop10(start_date, end_date){
     var start_month = parseInt(start_date.split("-")[1]);

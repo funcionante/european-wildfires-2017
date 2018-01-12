@@ -4,7 +4,7 @@ var margin_simple = {top: 30, right: 20, bottom: 30, left: 100},
     height_simple = 170 - margin_simple.top - margin_simple.bottom;
 
 // Parse the date / time
-var parseDate_simple = d3.time.format("%d-%b-%y").parse;
+var parseDate_simple = d3.time.format("%Y-%m-%d").parse;
 
 // Set the ranges
 var x_simple = d3.time.scale().range([0, width_simple]);
@@ -31,32 +31,44 @@ var svg_simple = d3.select("#simple-plot")
     .attr("transform",
         "translate(" + margin_simple.left + "," + margin_simple.top + ")");
 
-// Get the data
-d3.csv("data.csv", function(error, data) {
-    data.forEach(function(d) {
+
+var simple_data, simple_x_axis, simple_y_axis;
+
+function update_line(data) {
+    console.log("update");
+    data.forEach(function (d) {
         d.date = parseDate_simple(d.date);
-        console.log(d.date);
         d.close = +d.close;
     });
 
+    if (simple_x_axis !== undefined) {
+        simple_data.remove();
+        simple_x_axis.remove();
+        simple_y_axis.remove();
+    }
+
     // Scale the range of the data
-    x_simple.domain(d3.extent(data, function(d) { return d.date; }));
-    y_simple.domain([0, d3.max(data, function(d) { return d.close; })]);
+    x_simple.domain(d3.extent(data, function (d) {
+        return d.date;
+    }));
+    y_simple.domain([0, d3.max(data, function (d) {
+        return d.close;
+    })]);
 
     // Add the valueline path.
-    svg_simple.append("path")
+    simple_data = svg_simple.append("path")
         .attr("class", "line")
         .attr("d", valueline_simple(data));
 
     // Add the X Axis
-    svg_simple.append("g")
+    simple_x_axis = svg_simple.append("g")
         .attr("class", "x axis")
         .attr("transform", "translate(0," + height_simple + ")")
         .call(xAxis_simple);
 
     // Add the Y Axis
-    svg_simple.append("g")
+    simple_y_axis = svg_simple.append("g")
         .attr("class", "y axis")
         .call(yAxis_simple);
 
-});
+}

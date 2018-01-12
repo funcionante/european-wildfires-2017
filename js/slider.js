@@ -72,6 +72,8 @@ function start_point(season){
 
     update_plot1_dataset(x_start_date, x_end_date);
 
+    update_line(getOccurrences(x_start_date,x_end_date));
+
     var resetBar = function(x, width) {
         //no error checking
         elements.$bar.attr({
