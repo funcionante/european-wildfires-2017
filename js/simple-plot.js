@@ -32,7 +32,7 @@ var svg_simple = d3.select("#simple-plot")
         "translate(" + margin_simple.left + "," + margin_simple.top + ")");
 
 
-var simple_data, simple_x_axis, simple_y_axis;
+var simple_data, simple_x_axis, simple_y_axis, simple_axis_text;
 
 function update_line(data) {
     console.log("update");
@@ -45,6 +45,7 @@ function update_line(data) {
         simple_data.remove();
         simple_x_axis.remove();
         simple_y_axis.remove();
+        simple_axis_text.remove();
     }
 
     // Scale the range of the data
@@ -70,5 +71,14 @@ function update_line(data) {
     simple_y_axis = svg_simple.append("g")
         .attr("class", "y axis")
         .call(yAxis_simple);
+
+    // text label for the y axis
+    simple_axis_text = svg_simple.append("text")
+        .attr("transform", "rotate(-90)")
+        .attr("y", -55)
+        .attr("x",0 - (height_simple / 2))
+        .attr("dy", "1em")
+        .style("text-anchor", "middle")
+        .text("Total de ocorrências");
 
 }
