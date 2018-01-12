@@ -302,7 +302,7 @@ function change(dataset) {
         .append("text")
         .attr("transform", "translate(-5, -20)")
         .attr("dx", ".1em")
-        .text("% de ocurrências");
+        .text("% relativa ao total de ocurrências no período definido");
 
 
     var bar_plot1 = svg_plot1.selectAll(".bar")
