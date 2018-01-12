@@ -409,6 +409,7 @@ function start_point(season){
                 var slider_end_date = '2017' + "-" + parseInt(dend.value._d.getMonth()+1) + "-" + dend.value._d.getDate();
 
                 update_plot1_dataset(slider_start_date, slider_end_date);
+                update_line(getOccurrences(slider_start_date,slider_end_date));
             } else if (process === 'dragstart') {
                 //svg.attr('opacity', 0.5);
             }

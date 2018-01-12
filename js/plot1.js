@@ -250,7 +250,7 @@ function plot1_init() {
 
     margin_plot1 = {top: 30, right: 10, bottom: -20, left: 100};
     width_plot1 = 900;
-    height_plot1 = 400;
+    height_plot1 = 300;
 
     div_plot1 = d3.select("body").append("div").attr("class", "toolTip");
 
