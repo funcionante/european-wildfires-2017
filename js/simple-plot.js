@@ -35,7 +35,6 @@ var svg_simple = d3.select("#simple-plot")
 var simple_data, simple_x_axis, simple_y_axis, simple_axis_text;
 
 function update_line(data) {
-    console.log("update");
     data.forEach(function (d) {
         d.date = parseDate_simple(d.date);
         d.close = +d.close;
