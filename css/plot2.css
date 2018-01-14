@@ -70,3 +70,39 @@
 .details{
     color:white;
 }
+
+#map path {
+    stroke:white;
+    stroke-width: 0.5px;
+    fill:#EBEBE0;
+}
+
+#float-button-group {
+    position:absolute;
+    top:90px;
+    left:10%;
+    opacity:0.5;
+}
+
+#float-button-group:hover {
+    opacity:1;
+}
+
+#map {
+    margin-left: 8%;
+    background: skyblue;
+    width: 965px;
+    height: 505px;
+}
+
+#map-zoomer {
+    position:absolute;
+    writing-mode: bt-lr;
+    -webkit-appearance: slider-vertical;
+    width: 8px;
+    height: 100px;
+    padding: 0 5px;
+    position: absolute;
+    top:200px;
+    left:11%;
+}

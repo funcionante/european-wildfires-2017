@@ -48,11 +48,11 @@ function toPortuguese(name) {
         case 'England': return 'Reino Unido';
         default: return name;
     }
-};
+}
 
 //Width and height
-var w = 800;
-var h = 600;
+var w = d3.select('#map').node().getBoundingClientRect().width,
+    h = d3.select('#map').node().getBoundingClientRect().height;
 var plot2_type = "total_occurrences";
 
 var format = d3.format(",");
@@ -128,8 +128,11 @@ tip.offset(function(d) { // [top, left]
 });
 
 var margin = {top: 0, right: 0, bottom: 0, left: 0},
-    width = 960 - margin.left - margin.right,
-    height = 500 - margin.top - margin.bottom;
+    width = d3.select('#map').node().getBoundingClientRect().width,
+    height = d3.select('#map').node().getBoundingClientRect().height;
+
+var min_scale = 1;
+var max_scale = 3;
 
 // http://www.perbang.dk/rgbgradient/
 function customColor(value) {
@@ -157,14 +160,20 @@ var path = d3.geo.path().projection(projection);
 
 var data_set;
 
-var svg = d3.select("#plot2-holder")
+var svg = d3.select("#map")
     .append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
-    .call(d3.behavior.zoom().on("zoom", function () {
-        svg.attr("transform", "translate(" + d3.event.translate + ")" + " scale(" + d3.event.scale + ")")
+    .call(d3.behavior.zoom().scaleExtent([1, 2]).on("zoom", function () {
+        svg.attr("transform", "translate(" + d3.event.translate + ")" + " scale(" + d3.event.scale + ")");
     }))
     .append("g");
+
+var svg_plot2 = svg;
+
+function zoom_plot2(){
+    svg.attr("transform", "translate(" + d3.event.translate + ")" + " scale(" + d3.event.scale + ")")
+}
 
 svg.call(tip);
 
